@@ -39,14 +39,14 @@ exports.bookEvent = async (req, res) => {
             return res.status(400).json({ error: 'No seats available for this event' });
         }
 
-        const existingBooking = await Booking.findOne({ userId: req.user._id, eventId: eventId }); // ✅
+        const existingBooking = await Booking.findOne({ userId: req.user._id, eventId: eventId }); 
         if (existingBooking) {
             return res.status(400).json({ error: 'You have already booked this event' });
         }
 
         const booking = await Booking.create({
-            userId: req.user._id,  // ✅
-            eventId: eventId,      // ✅
+            userId: req.user._id, 
+            eventId: eventId,      
             amount: event.ticketPrice,
             status: 'pending',
             paymentStatus: 'not_paid'
@@ -78,7 +78,7 @@ exports.confirmBooking = async (req, res) => {
             return res.status(400).json({ error: 'Booking is already confirmed' });
         }
 
-        const event = await Event.findById(booking.eventId._id); // ✅
+        const event = await Event.findById(booking.eventId._id); 
         if (!event) {
             return res.status(404).json({ error: 'Event not found' });
         }
@@ -105,7 +105,7 @@ exports.confirmBooking = async (req, res) => {
 // Get my bookings
 exports.getMyBookings = async (req, res) => {
     try {
-        const bookings = await Booking.find({ userId: req.user._id }).populate('eventId'); // ✅
+        const bookings = await Booking.find({ userId: req.user._id }).populate('eventId'); 
         res.json(bookings);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -120,12 +120,12 @@ exports.cancelBooking = async (req, res) => {
             return res.status(404).json({ error: 'Booking not found' });
         }
 
-        if (booking.userId.toString() !== req.user._id.toString()) { // ✅
+        if (booking.userId.toString() !== req.user._id.toString()) { 
             return res.status(403).json({ error: 'Unauthorized' });
         }
 
         if (booking.status === 'confirmed') {
-            const event = await Event.findById(booking.eventId); // ✅
+            const event = await Event.findById(booking.eventId); 
             if (event) {
                 event.availableSeats += 1;
                 await event.save();
