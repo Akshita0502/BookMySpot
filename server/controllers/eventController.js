@@ -10,6 +10,9 @@ exports.getAllEvents = async (req, res) => {
         if (req.query.ticketPrice) {
             filters.ticketPrice = req.query.ticketPrice;
         }
+        if (req.query.search) {
+            filters.title = { $regex: req.query.search, $options: 'i' };
+        }
         const events = await Event.find(filters).populate('createdBy', 'name email');
         res.json(events);
     } catch (error) {
