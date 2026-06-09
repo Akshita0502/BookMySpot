@@ -10,7 +10,12 @@ dotenv.config();
 
 
 const app = express();
-app.use(cors());
+const cors = require('cors');
+
+app.use(cors({
+    origin: 'https://book-my-spot-eta.vercel.app',
+    credentials: true
+}));
 app.use(express.json());
 
 //ROUTES
