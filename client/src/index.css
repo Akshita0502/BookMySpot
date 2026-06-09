@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #7c3aed;       /* violet-600 */
+  --color-primary-light: #a78bfa; /* violet-400 */
+  --color-accent: #c4b5fd;        /* violet-300 - gold-like glow */
+  --color-bg: #0f0f1a;            /* deep dark */
+  --color-surface: #1a1a2e;       /* card bg */
+  --color-border: #2e2e4d;
+
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: #0f0f1a;
+  color: #e2e8f0;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+}
